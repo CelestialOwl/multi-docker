@@ -1,0 +1,23 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t khojii/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true khojii/react-test npm run test
+
+after_success:
+  - docker build -t khojii/multi-client ./client
+  - docker build -t khojii/multi-nginx ./nginx
+  - docker build -t khojii/multi-server ./server
+  - docker build -t khojii/multi-worker ./worker
+  # Login to  the docker  CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take the images and push them to docker hub
+  - docker push khojii/multi-cient
+  - docker push khojii/multi-nginx
+  - docker push khojii/multi-server
+  - docker push khojii/multi-worker
