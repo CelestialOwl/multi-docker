@@ -4,20 +4,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t khojii/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t celestialowl/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true khojii/react-test npm run test
+  - docker run -e CI=true celestialowl/react-test npm run test
 
 after_success:
-  - docker build -t khojii/multi-client ./client
-  - docker build -t khojii/multi-nginx ./nginx
-  - docker build -t khojii/multi-server ./server
-  - docker build -t khojii/multi-worker ./worker
+  - docker build -t celestialowl/multi-client ./client
+  - docker build -t celestialowl/multi-nginx ./nginx
+  - docker build -t celestialowl/multi-server ./server
+  - docker build -t celestialowl/multi-worker ./worker
   # Login to  the docker  CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take the images and push them to docker hub
-  - docker push khojii/multi-cient
-  - docker push khojii/multi-nginx
-  - docker push khojii/multi-server
-  - docker push khojii/multi-worker
+  - docker push celestialowl/multi-cient
+  - docker push celestialowl/multi-nginx
+  - docker push celestialowl/multi-server
+  - docker push celestialowl/multi-worker
