@@ -17,7 +17,7 @@ after_success:
   # Login to  the docker  CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take the images and push them to docker hub
-  - docker push celestialowl/multi-cient
+  - docker push celestialowl/multi-client
   - docker push celestialowl/multi-nginx
   - docker push celestialowl/multi-server
   - docker push celestialowl/multi-worker
